@@ -5,8 +5,8 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="400.0"
-            xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/20.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="healthe_logininterface.SignupController"
             style="-fx-background-color: #e6f2ff;">
     <children>
@@ -20,16 +20,7 @@
         <TextField fx:id="emailField" layoutX="100.0" layoutY="110.0" promptText="Email" />
         <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="150.0" promptText="Password" />
         <TextField fx:id="ageField" layoutX="100.0" layoutY="190.0" promptText="Age" />
-
-        <ComboBox fx:id="genderBox" layoutX="100.0" layoutY="230.0" prefWidth="200.0" promptText="Select Gender">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Male"/>
-                    <String fx:value="Female"/>
-                    <String fx:value="Other"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
+        <ComboBox fx:id="genderBox" layoutX="100.0" layoutY="230.0" prefWidth="200.0" promptText="Select Gender" />
 
         <Button fx:id="submitButton" layoutX="150.0" layoutY="280.0" text="Sign Up" onAction="#handleSignup"
                 style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
