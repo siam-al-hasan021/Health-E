@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320"
+            style="-fx-background-color: #cce6ff;"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/20.0.1"
+            fx:controller="healthe_logininterface.FXMLDocumentController">
+
+   <children>
+      <Label layoutX="29.0" layoutY="14.0" text="Welcome to Health-E" textFill="#003366">
+         <font>
+            <Font name="Lucida Fax Demibold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameField" layoutX="73.0" layoutY="42.0" promptText="Username/Email"
+                 style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14; -fx-border-color: #66b3ff;" />
+      <PasswordField fx:id="passwordField" layoutX="73.0" layoutY="88.0" promptText="Password"
+                     style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14; -fx-border-color: #66b3ff;" />
+      <Button fx:id="loginButton" layoutX="86.0" layoutY="138.0" mnemonicParsing="false"
+              onAction="#handleLogin"
+              style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 16;"
+              text="Login" />
+      <Hyperlink layoutX="72.0" layoutY="175.0" text="Don’t have an account? Sign up" />
+   </children>
+</AnchorPane>
