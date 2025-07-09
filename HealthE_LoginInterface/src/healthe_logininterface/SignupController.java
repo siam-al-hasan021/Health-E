@@ -29,7 +29,7 @@ public class SignupController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // You can populate ComboBox here if not using Scene Builder's items
+        genderBox.getItems().addAll("Male", "Female", "Other");
     }
 
     @FXML
@@ -40,9 +40,7 @@ public class SignupController implements Initializable {
         String age = ageField.getText();
         String gender = genderBox.getValue();
 
-        System.out.println("Signed up: " + name + " | " + email + " | " + password + " | " + age + " | " + gender);
-        
-        // TODO: Save to MongoDB or MySQL
+        System.out.println("Signup Data: " + name + " | " + email + " | " + password + " | " + age + " | " + gender);
     }
 
     @FXML
