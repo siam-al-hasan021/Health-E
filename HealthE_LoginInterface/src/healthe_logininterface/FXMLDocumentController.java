@@ -46,7 +46,7 @@ public class FXMLDocumentController implements Initializable {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        String checkQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+        String checkQuery = "SELECT name FROM users WHERE email = ? AND password = ?";
 
         try {
             PreparedStatement statement = connectDB.prepareStatement(checkQuery);
@@ -56,8 +56,18 @@ public class FXMLDocumentController implements Initializable {
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
-                showAlert(Alert.AlertType.INFORMATION, "Login successful!");
-                // 🚀 Redirect to dashboard here (optional)
+                String name = result.getString("name");
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+                Parent root = loader.load();
+
+                DashboardController dashboardController = loader.getController();
+                dashboardController.setLoggedInName(name); // <-- pass name
+
+                Stage stage = (Stage) loginButton.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+
             } else {
                 showAlert(Alert.AlertType.ERROR, "Invalid email or password.");
             }
