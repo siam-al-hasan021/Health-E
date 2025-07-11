@@ -1,6 +1,8 @@
 package healthe_logininterface;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +42,37 @@ public class SignupController implements Initializable {
         String age = ageField.getText();
         String gender = genderBox.getValue();
 
-        System.out.println("Signup Data: " + name + " | " + email + " | " + password + " | " + age + " | " + gender);
+        // Connect to DB
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+
+        String insertQuery = "INSERT INTO users (name, email, password, age, gender) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement statement = connectDB.prepareStatement(insertQuery);
+            statement.setString(1, name);
+            statement.setString(2, email);
+            statement.setString(3, password);
+            statement.setInt(4, Integer.parseInt(age));
+            statement.setString(5, gender);
+
+            int rowsInserted = statement.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("✅ User registered successfully!");
+                showAlert("Success", "User registered successfully!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "Registration failed: " + e.getMessage());
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
