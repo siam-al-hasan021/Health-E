@@ -1,18 +1,18 @@
 package healthe_logininterface;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Hyperlink;
 
 public class FXMLDocumentController implements Initializable {
 
@@ -30,16 +30,42 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initialization if needed
+        // Nothing needed yet
     }
 
     @FXML
     private void handleLogin(ActionEvent event) {
-        String username = usernameField.getText();
+        String email = usernameField.getText();
         String password = passwordField.getText();
 
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
+        if (email.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Please enter both email and password.");
+            return;
+        }
+
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+
+        String checkQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+
+        try {
+            PreparedStatement statement = connectDB.prepareStatement(checkQuery);
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                showAlert(Alert.AlertType.INFORMATION, "Login successful!");
+                // 🚀 Redirect to dashboard here (optional)
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Invalid email or password.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Database error: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -51,5 +77,13 @@ public class FXMLDocumentController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle("Login");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
