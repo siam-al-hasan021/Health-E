@@ -4,31 +4,30 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320"
+<AnchorPane id="AnchorPane" prefHeight="250" prefWidth="350"
             style="-fx-background-color: #cce6ff;"
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/20.0.1"
             fx:controller="healthe_logininterface.FXMLDocumentController">
 
    <children>
-      <Label layoutX="29.0" layoutY="14.0" text="Welcome to Health-E" textFill="#003366">
+      <Label layoutX="40.0" layoutY="20.0" text="Login to Health-E" textFill="#003366">
          <font>
-            <Font name="Lucida Fax Demibold" size="24.0" />
+            <Font name="Lucida Fax Demibold" size="22.0" />
          </font>
       </Label>
 
-      <TextField fx:id="usernameField" layoutX="73.0" layoutY="42.0" promptText="Username/Email"
-                 style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14; -fx-border-color: #66b3ff;" />
+      <TextField fx:id="usernameField" layoutX="80.0" layoutY="70.0" promptText="Email"
+                 style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14;" />
 
-      <PasswordField fx:id="passwordField" layoutX="73.0" layoutY="88.0" promptText="Password"
-                     style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14; -fx-border-color: #66b3ff;" />
+      <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="115.0" promptText="Password"
+                     style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14;" />
 
-      <Button fx:id="loginButton" layoutX="86.0" layoutY="138.0" mnemonicParsing="false"
+      <Button fx:id="loginButton" layoutX="120.0" layoutY="160.0" text="Login"
               onAction="#handleLogin"
-              style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 16;"
-              text="Login" />
+              style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
 
-      <Hyperlink fx:id="signupLink" layoutX="72.0" layoutY="175.0"
+      <Hyperlink fx:id="signupLink" layoutX="90.0" layoutY="200.0"
                  text="Don’t have an account? Sign up"
                  onAction="#goToSignup" />
    </children>
