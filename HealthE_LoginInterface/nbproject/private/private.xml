@@ -5,9 +5,12 @@
         <group>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/FXMLDocumentController.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/Signup.fxml</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DashboardController.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/FXMLDocument.fxml</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/SignupController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DatabaseConnection.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/HealthE_LoginInterface.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/Dashboard.fxml</file>
         </group>
     </open-files>
 </project-private>
