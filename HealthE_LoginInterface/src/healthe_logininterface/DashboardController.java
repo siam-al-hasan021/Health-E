@@ -19,6 +19,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Button postProblemButton;
 
+    @FXML
+    private Button viewPostsButton;
+
     private String userName;
     private String userEmail;
 
@@ -43,6 +46,19 @@ public class DashboardController implements Initializable {
             controller.setUserEmail(userEmail);  // ✅ send email to post screen
 
             Stage stage = (Stage) postProblemButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToViewPosts() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewPosts.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) viewPostsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
