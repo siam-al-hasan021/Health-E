@@ -43,18 +43,20 @@ public class ViewPostsController implements Initializable {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        String query = "SELECT user_email, title, description FROM posts";
+        String query = "SELECT id, user_email, title, description, reply FROM posts";
 
         try {
             Statement statement = connectDB.createStatement();
             ResultSet result = statement.executeQuery(query);
 
             while (result.next()) {
+                int id = result.getInt("id");
                 String email = result.getString("user_email");
                 String title = result.getString("title");
                 String description = result.getString("description");
+                String reply = result.getString("reply");
 
-                postList.add(new Post(email, title, description));
+                postList.add(new Post(id, email, title, description, reply));
             }
 
             postsTable.setItems(postList);
