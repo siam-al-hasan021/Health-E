@@ -1,26 +1,77 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package healthe_logininterface;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.collections.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author user
- */
 public class ViewPostsController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private TableView<Post> postsTable;
+
+    @FXML
+    private TableColumn<Post, String> emailCol;
+
+    @FXML
+    private TableColumn<Post, String> titleCol;
+
+    @FXML
+    private TableColumn<Post, String> descCol;
+
+    private ObservableList<Post> postList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+        emailCol.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        titleCol.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
+        descCol.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+
+        loadPostsFromDatabase();
+    }
+
+    private void loadPostsFromDatabase() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+
+        String query = "SELECT user_email, title, description FROM posts";
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet result = statement.executeQuery(query);
+
+            while (result.next()) {
+                String email = result.getString("user_email");
+                String title = result.getString("title");
+                String description = result.getString("description");
+
+                postList.add(new Post(email, title, description));
+            }
+
+            postsTable.setItems(postList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goBack() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+            Stage stage = (Stage) postsTable.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
