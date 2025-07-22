@@ -7,3 +7,5 @@ Current progress
 <img width="1920" height="1080" alt="Screenshot (1318)" src="https://github.com/user-attachments/assets/becbdce3-ff44-4d2c-8d27-f9e2e933524f" />
 Added user in the database
 <img width="1920" height="1080" alt="Screenshot (1327)" src="https://github.com/user-attachments/assets/fcc1519a-1658-497d-83a6-805bed62587c" />
+<img width="1920" height="1080" alt="Screenshot (1334)" src="https://github.com/user-attachments/assets/df61dc73-a6c0-4ad1-b5da-3b54327ba426" />
+<img width="1920" height="1080" alt="Screenshot (1335)" src="https://github.com/user-attachments/assets/752152fa-8145-431c-ba84-5497675f6be2" />
