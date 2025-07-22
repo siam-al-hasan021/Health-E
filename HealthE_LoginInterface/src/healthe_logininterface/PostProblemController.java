@@ -26,8 +26,11 @@ public class PostProblemController implements Initializable {
     @FXML
     private Hyperlink goBack;
 
-    // You can replace this with actual logged-in user's email
-    private String userEmail = "r@gmail.com"; // ✅ Later make dynamic!
+    private String userEmail; // ✅ now dynamic
+
+    public void setUserEmail(String email) {
+        this.userEmail = email;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,7 +74,13 @@ public class PostProblemController implements Initializable {
     @FXML
     private void goBack() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+            Parent root = loader.load();
+
+            // Optional: re-pass user data back to Dashboard if needed
+            // DashboardController dc = loader.getController();
+            // dc.setUserData(...);
+
             Stage stage = (Stage) goBack.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
