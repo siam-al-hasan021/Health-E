@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1"
+            fx:controller="healthe_logininterface.DoctorViewController"
+            prefHeight="500.0" prefWidth="700.0"
+            style="-fx-background-color: #f5faff;">
+    
+    <children>
+        <Label layoutX="250" layoutY="20" text="Doctor Dashboard"
+               style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="postTable" layoutX="30" layoutY="60" prefHeight="300" prefWidth="640">
+            <columns>
+                <TableColumn fx:id="emailCol" text="User Email" prefWidth="150"/>
+                <TableColumn fx:id="titleCol" text="Title" prefWidth="150"/>
+                <TableColumn fx:id="descCol" text="Description" prefWidth="200"/>
+                <TableColumn fx:id="replyCol" text="Reply" prefWidth="140"/>
+            </columns>
+        </TableView>
+
+        <TextArea fx:id="replyField" layoutX="30" layoutY="370" prefHeight="60" prefWidth="500"
+                  promptText="Write your reply here..." />
+        <Button layoutX="550" layoutY="380" text="Send Reply" onAction="#sendReply"
+                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;" />
+    </children>
+</AnchorPane>
