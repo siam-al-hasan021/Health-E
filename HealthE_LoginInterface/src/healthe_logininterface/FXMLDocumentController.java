@@ -46,7 +46,7 @@ public class FXMLDocumentController implements Initializable {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        String checkQuery = "SELECT name FROM users WHERE email = ? AND password = ?";
+        String checkQuery = "SELECT name, email FROM users WHERE email = ? AND password = ?";
 
         try {
             PreparedStatement statement = connectDB.prepareStatement(checkQuery);
@@ -57,12 +57,13 @@ public class FXMLDocumentController implements Initializable {
 
             if (result.next()) {
                 String name = result.getString("name");
+                String emailDB = result.getString("email");
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
                 Parent root = loader.load();
 
                 DashboardController dashboardController = loader.getController();
-                dashboardController.setLoggedInName(name); // <-- pass name
+                dashboardController.setUserData(name, emailDB); // ✅ Pass name + email
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
