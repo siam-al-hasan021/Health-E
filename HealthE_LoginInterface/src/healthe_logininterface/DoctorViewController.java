@@ -80,7 +80,7 @@ public class DoctorViewController implements Initializable {
             stmt.setInt(2, selectedPost.getId());
             stmt.executeUpdate();
 
-            selectedPost.setReply(reply);  // update reply in the UI
+            selectedPost.setReply(reply);
             postTable.refresh();
             replyField.clear();
 
