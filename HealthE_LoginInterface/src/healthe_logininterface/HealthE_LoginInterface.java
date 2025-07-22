@@ -8,15 +8,16 @@ import javafx.stage.Stage;
 
 public class HealthE_LoginInterface extends Application {
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+@Override
+public void start(Stage stage) throws Exception {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/healthe_logininterface/FXMLDocument.fxml"));
+    Parent root = loader.load();
 
-        Scene scene = new Scene(root);
-        stage.setTitle("Health-E Login");
-        stage.setScene(scene);
-        stage.show();
-    }
+    Scene scene = new Scene(root);
+    stage.setTitle("Health-E Login");
+    stage.setScene(scene);
+    stage.show();
+}
 
     public static void main(String[] args) {
         launch(args);
