@@ -28,6 +28,9 @@ public class ViewPostsController implements Initializable {
     @FXML
     private TableColumn<Post, String> descCol;
 
+    @FXML
+    private TableColumn<Post, String> replyCol;
+
     private ObservableList<Post> postList = FXCollections.observableArrayList();
 
     @Override
@@ -35,6 +38,7 @@ public class ViewPostsController implements Initializable {
         emailCol.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         titleCol.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         descCol.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
+        replyCol.setCellValueFactory(cellData -> cellData.getValue().replyProperty());
 
         loadPostsFromDatabase();
     }
