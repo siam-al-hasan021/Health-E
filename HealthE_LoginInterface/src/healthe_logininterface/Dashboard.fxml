@@ -1,42 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/20.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="healthe_logininterface.DashboardController"
-            prefHeight="500.0" prefWidth="600.0"
-            style="-fx-background-color: #e6f7ff;">
+            style="-fx-background-color: #e6f2ff;">
 
     <children>
 
-        <!-- Logo Image -->
-        <ImageView layoutX="230.0" layoutY="10.0" fitWidth="140" fitHeight="80">
+        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="20.0" layoutY="20.0">
             <image>
-                <Image url="@../images/Heal.png" preserveRatio="true" />
+                <Image url="@images/Heal.png" />
             </image>
         </ImageView>
 
-        <!-- Welcome Label -->
-        <Label fx:id="welcomeLabel" layoutX="30.0" layoutY="110.0" text="Welcome!"
-               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #006699;" />
+        <Label fx:id="welcomeLabel" layoutX="100.0" layoutY="30.0" text="Welcome!"
+               style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 
-        <Button layoutX="50.0" layoutY="170.0" text="Post a Problem"
-                prefWidth="200.0" style="-fx-background-color: #3399ff; -fx-text-fill: white;" />
-
-        <Button layoutX="50.0" layoutY="220.0" text="View Doctor Suggestions"
-                prefWidth="200.0" style="-fx-background-color: #33cc99; -fx-text-fill: white;" />
-
-        <Button layoutX="50.0" layoutY="270.0" text="View/Edit Profile"
-                prefWidth="200.0" style="-fx-background-color: #9966cc; -fx-text-fill: white;" />
-
-        <Button layoutX="50.0" layoutY="320.0" text="Logout"
-                prefWidth="200.0" onAction="#handleLogout"
-                style="-fx-background-color: #ff6666; -fx-text-fill: white;" />
+        <Button layoutX="220.0" layoutY="100.0" text="Post a Problem"
+                fx:id="postProblemButton"
+                onAction="#goToPostProblem"
+                style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold;" />
 
     </children>
 </AnchorPane>
