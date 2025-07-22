@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthe_logininterface.ViewPostsController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/20.0.1"
+            fx:controller="healthe_logininterface.ViewPostsController"
+            prefWidth="600" prefHeight="400"
+            style="-fx-background-color: #f9f9f9;">
     
+    <children>
+        <Label layoutX="20.0" layoutY="10.0" text="All Posted Problems">
+            <font><Font size="20.0" /></font>
+        </Label>
+
+        <TableView fx:id="postsTable" layoutX="20.0" layoutY="50.0" prefWidth="560.0" prefHeight="280.0">
+            <columns>
+                <TableColumn fx:id="emailCol" text="User Email" prefWidth="150"/>
+                <TableColumn fx:id="titleCol" text="Title" prefWidth="150"/>
+                <TableColumn fx:id="descCol" text="Description" prefWidth="250"/>
+            </columns>
+        </TableView>
+
+        <Button text="Back" layoutX="20.0" layoutY="350.0" onAction="#goBack"
+                style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold;" />
+    </children>
 </AnchorPane>
