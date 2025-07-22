@@ -35,19 +35,22 @@ public class ViewPostsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Bind table columns to Post model properties
         emailCol.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         titleCol.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         descCol.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
         replyCol.setCellValueFactory(cellData -> cellData.getValue().replyProperty());
 
+        // Load data from DB
         loadPostsFromDatabase();
     }
 
     private void loadPostsFromDatabase() {
+        postList.clear();  // Clear old data
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        String query = "SELECT id, user_email, title, description, reply FROM posts";
+        String query = "SELECT id, user_email, title, description, reply FROM posts ORDER BY id DESC";
 
         try {
             Statement statement = connectDB.createStatement();
