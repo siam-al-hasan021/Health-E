@@ -27,5 +27,11 @@
                 onAction="#goToPostProblem"
                 style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold;" />
 
+        <!-- ✅ View Posts button -->
+        <Button layoutX="220.0" layoutY="160.0" text="View Posts"
+                fx:id="viewPostsButton"
+                onAction="#goToViewPosts"
+                style="-fx-background-color: #66cc66; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold;" />
+
     </children>
 </AnchorPane>
