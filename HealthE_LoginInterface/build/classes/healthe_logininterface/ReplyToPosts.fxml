@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/20.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="healthe_logininterface.ReplyToPostsController"
+            prefHeight="500.0" prefWidth="700.0"
+            style="-fx-background-color: #f9f9f9;">
+
+    <children>
+        <Label layoutX="20.0" layoutY="20.0" text="All Posts"
+               style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="postsTable" layoutX="20.0" layoutY="60.0" prefWidth="660.0" prefHeight="250.0">
+            <columns>
+                <TableColumn fx:id="emailCol" text="User Email" prefWidth="150" />
+                <TableColumn fx:id="titleCol" text="Title" prefWidth="200" />
+                <TableColumn fx:id="descCol" text="Description" prefWidth="310" />
+            </columns>
+        </TableView>
+
+        <Label layoutX="20.0" layoutY="330.0" text="Your Reply:"
+               style="-fx-font-size: 16px;" />
+
+        <TextArea fx:id="replyField" layoutX="20.0" layoutY="360.0" prefWidth="660.0" prefHeight="60.0" />
+
+        <Button text="Submit Reply" layoutX="280.0" layoutY="440.0"
+                onAction="#submitReply"
+                style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-background-radius: 10;" />
+    </children>
+</AnchorPane>
