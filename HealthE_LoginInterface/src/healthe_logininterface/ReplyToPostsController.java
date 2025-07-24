@@ -23,6 +23,9 @@ public class ReplyToPostsController implements Initializable {
     private TableColumn<Post, String> descCol;
 
     @FXML
+    private TableColumn<Post, String> replyCol;
+
+    @FXML
     private TextArea replyField;
 
     private String doctorEmail;
@@ -38,6 +41,7 @@ public class ReplyToPostsController implements Initializable {
         emailCol.setCellValueFactory(data -> data.getValue().emailProperty());
         titleCol.setCellValueFactory(data -> data.getValue().titleProperty());
         descCol.setCellValueFactory(data -> data.getValue().descriptionProperty());
+        replyCol.setCellValueFactory(data -> data.getValue().replyProperty());
 
         loadPostsFromDatabase();
     }
@@ -46,7 +50,7 @@ public class ReplyToPostsController implements Initializable {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        String query = "SELECT id, user_email, title, description FROM posts";
+        String query = "SELECT id, user_email, title, description, reply FROM posts";
 
         try {
             Statement statement = connectDB.createStatement();
@@ -57,9 +61,9 @@ public class ReplyToPostsController implements Initializable {
                 String email = result.getString("user_email");
                 String title = result.getString("title");
                 String description = result.getString("description");
+                String reply = result.getString("reply");
 
-               postList.add(new Post(id, email, title, description, ""));
-
+                postList.add(new Post(id, email, title, description, reply != null ? reply : ""));
             }
 
             postsTable.setItems(postList);
@@ -71,7 +75,7 @@ public class ReplyToPostsController implements Initializable {
     @FXML
     private void submitReply() {
         Post selectedPost = postsTable.getSelectionModel().getSelectedItem();
-        String replyText = replyField.getText();
+        String replyText = replyField.getText().trim();
 
         if (selectedPost == null) {
             showAlert(Alert.AlertType.WARNING, "Please select a post to reply.");
@@ -86,20 +90,33 @@ public class ReplyToPostsController implements Initializable {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
 
-        String insertQuery = "INSERT INTO replies (post_id, doctor_email, reply_text) VALUES (?, ?, ?)";
+        // Save in `replies` table
+        String insertReply = "INSERT INTO replies (post_id, doctor_email, reply_text) VALUES (?, ?, ?)";
+
+        // Also update `posts` table so reply appears in all views
+        String updatePost = "UPDATE posts SET reply = ? WHERE id = ?";
 
         try {
-            PreparedStatement statement = connectDB.prepareStatement(insertQuery);
-            statement.setInt(1, selectedPost.getId());
-            statement.setString(2, doctorEmail);
-            statement.setString(3, replyText);
+            // Insert reply to `replies` table
+            PreparedStatement insertStmt = connectDB.prepareStatement(insertReply);
+            insertStmt.setInt(1, selectedPost.getId());
+            insertStmt.setString(2, doctorEmail);
+            insertStmt.setString(3, replyText);
+            insertStmt.executeUpdate();
 
-            int rowsInserted = statement.executeUpdate();
+            // Update reply in `posts` table
+            PreparedStatement updateStmt = connectDB.prepareStatement(updatePost);
+            updateStmt.setString(1, replyText);
+            updateStmt.setInt(2, selectedPost.getId());
+            updateStmt.executeUpdate();
 
-            if (rowsInserted > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "✅ Reply submitted successfully!");
-                replyField.clear();
-            }
+            // Update UI
+            selectedPost.setReply(replyText);
+            postsTable.refresh();
+            replyField.clear();
+
+            showAlert(Alert.AlertType.INFORMATION, "✅ Reply submitted successfully!");
+
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error submitting reply: " + e.getMessage());
