@@ -10,7 +10,7 @@ public class Post {
     private final StringProperty description;
     private final StringProperty reply;
 
-    // Constructor with reply
+    // Constructor with all fields (used when fetching from database)
     public Post(int id, String email, String title, String description, String reply) {
         this.id = new SimpleIntegerProperty(id);
         this.email = new SimpleStringProperty(email);
@@ -19,7 +19,7 @@ public class Post {
         this.reply = new SimpleStringProperty(reply);
     }
 
-    // Constructor without reply (if needed)
+    // Constructor without reply (used when creating a new post)
     public Post(String email, String title, String description) {
         this.id = new SimpleIntegerProperty(0);
         this.email = new SimpleStringProperty(email);
@@ -49,7 +49,7 @@ public class Post {
         return reply.get();
     }
 
-    // Property methods for TableView bindings
+    // Property methods (used by JavaFX TableView bindings)
     public IntegerProperty idProperty() {
         return id;
     }
@@ -70,8 +70,20 @@ public class Post {
         return reply;
     }
 
-    // Setters (only for reply)
+    // Setters (used when updating reply in UI or DB)
     public void setReply(String newReply) {
         this.reply.set(newReply);
+    }
+
+    // Optional: toString() method for debugging or logging
+    @Override
+    public String toString() {
+        return "Post{" +
+               "id=" + id.get() +
+               ", email='" + email.get() + '\'' +
+               ", title='" + title.get() + '\'' +
+               ", description='" + description.get() + '\'' +
+               ", reply='" + reply.get() + '\'' +
+               '}';
     }
 }
