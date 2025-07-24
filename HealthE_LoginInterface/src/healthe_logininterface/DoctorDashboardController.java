@@ -26,15 +26,14 @@ public class DoctorDashboardController implements Initializable {
         this.doctorName = name;
         this.doctorEmail = email;
 
-        // Optional: set a label with welcome message
-        if (doctorLabel != null) {
+        if (doctorLabel != null && name != null) {
             doctorLabel.setText("Welcome, Dr. " + name + "!");
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Nothing yet
+        // You may also test setting the label here (optional)
     }
 
     @FXML
@@ -44,12 +43,13 @@ public class DoctorDashboardController implements Initializable {
             Parent root = loader.load();
 
             ReplyToPostsController controller = loader.getController();
-            controller.setDoctorEmail(doctorEmail); // Pass doctor's email
+            controller.setDoctorEmail(doctorEmail); // Pass email
 
             Stage stage = (Stage) viewPostsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("⚠️ Failed to load ReplyToPosts.fxml");
         }
     }
 }
