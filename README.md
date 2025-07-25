@@ -11,3 +11,5 @@ Added user in the database
 <img width="1920" height="1080" alt="Screenshot (1335)" src="https://github.com/user-attachments/assets/752152fa-8145-431c-ba84-5497675f6be2" />
 <img width="1920" height="1080" alt="Screenshot (1341)" src="https://github.com/user-attachments/assets/a6fe4cf9-0720-4814-87c7-0ca73e197e47" />
 problem posting and doctors reply are working fine.
+<img width="1920" height="1080" alt="Screenshot (1349)" src="https://github.com/user-attachments/assets/0c60f0f5-be63-4dd9-9383-3f61bf277abb" />
+database
