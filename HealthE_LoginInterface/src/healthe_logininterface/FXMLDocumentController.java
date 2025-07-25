@@ -1,86 +1,64 @@
 package healthe_logininterface;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 import javafx.scene.Scene;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class FXMLDocumentController implements Initializable {
 
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Hyperlink signupLink;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Button loginButton;
+    @FXML private Hyperlink signupLink;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // Nothing needed yet
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
     @FXML
-    private void handleLogin(ActionEvent event) {
+    private void handleLogin() {
         String email = usernameField.getText();
         String password = passwordField.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Please enter both email and password.");
+            showAlert(Alert.AlertType.WARNING, "Please fill all fields.");
             return;
         }
 
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
+        try (Connection conn = new DatabaseConnection().getConnection()) {
+            String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
 
-        String checkQuery = "SELECT name, email FROM users WHERE email = ? AND password = ?";
+            ResultSet rs = stmt.executeQuery();
 
-        try {
-            PreparedStatement statement = connectDB.prepareStatement(checkQuery);
-            statement.setString(1, email);
-            statement.setString(2, password);
-
-            ResultSet result = statement.executeQuery();
-
-            if (result.next()) {
-                String name = result.getString("name");
-                String emailDB = result.getString("email");
+            if (rs.next()) {
+                String name = rs.getString("name");
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
                 Parent root = loader.load();
 
-                DashboardController dashboardController = loader.getController();
-                dashboardController.setUserData(name, emailDB); // ✅ Pass name + email
+                DashboardController controller = loader.getController();
+                controller.setUserData(name, email);
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.setScene(new Scene(root));
-                stage.show();
-
             } else {
-                showAlert(Alert.AlertType.ERROR, "Invalid email or password.");
+                showAlert(Alert.AlertType.ERROR, "Invalid credentials.");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Database error: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Login failed.");
         }
     }
 
     @FXML
-    private void goToSignup(ActionEvent event) {
+    private void goToSignup() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Signup.fxml"));
             Stage stage = (Stage) signupLink.getScene().getWindow();
@@ -90,11 +68,10 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    private void showAlert(Alert.AlertType alertType, String message) {
-        Alert alert = new Alert(alertType);
+    private void showAlert(Alert.AlertType type, String msg) {
+        Alert alert = new Alert(type);
         alert.setTitle("Login");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
+        alert.setContentText(msg);
         alert.showAndWait();
     }
 }
