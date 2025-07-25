@@ -1,37 +1,26 @@
 package healthe_logininterface;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
+import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
+import javafx.collections.FXCollections;
 
 public class SignupController implements Initializable {
 
-    @FXML
-    private TextField nameField, emailField, ageField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private ComboBox<String> genderBox;
-
-    @FXML
-    private Button submitButton;
-
-    @FXML
-    private Hyperlink loginLink;
+    @FXML private TextField nameField, emailField, ageField;
+    @FXML private PasswordField passwordField;
+    @FXML private ComboBox<String> genderBox;
+    @FXML private Button submitButton;
+    @FXML private Hyperlink loginLink;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        genderBox.getItems().addAll("Male", "Female", "Other");
+        genderBox.setItems(FXCollections.observableArrayList("Male", "Female", "Other"));
     }
 
     @FXML
@@ -42,37 +31,29 @@ public class SignupController implements Initializable {
         String age = ageField.getText();
         String gender = genderBox.getValue();
 
-        // Connect to DB
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || age.isEmpty() || gender == null) {
+            showAlert(Alert.AlertType.WARNING, "Please fill all fields.");
+            return;
+        }
 
-        String insertQuery = "INSERT INTO users (name, email, password, age, gender) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = new DatabaseConnection().getConnection()) {
+            String sql = "INSERT INTO users (name, email, password, age, gender) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setString(3, password);
+            stmt.setInt(4, Integer.parseInt(age));
+            stmt.setString(5, gender);
 
-        try {
-            PreparedStatement statement = connectDB.prepareStatement(insertQuery);
-            statement.setString(1, name);
-            statement.setString(2, email);
-            statement.setString(3, password);
-            statement.setInt(4, Integer.parseInt(age));
-            statement.setString(5, gender);
-
-            int rowsInserted = statement.executeUpdate();
-
-            if (rowsInserted > 0) {
-                System.out.println("✅ User registered successfully!");
-                showAlert("Success", "User registered successfully!");
-            }
+            stmt.executeUpdate();
+            showAlert(Alert.AlertType.INFORMATION, "🎉 Account created successfully!");
+            goToLogin();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            showAlert(Alert.AlertType.ERROR, "Email already exists.");
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Registration failed: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Signup failed.");
         }
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     @FXML
@@ -84,5 +65,12 @@ public class SignupController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showAlert(Alert.AlertType type, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle("Signup");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
