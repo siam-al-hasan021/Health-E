@@ -70,12 +70,23 @@ public class Post {
         return reply;
     }
 
-    // Setters (used when updating reply in UI or DB)
+    // Setters
+    public void setEmail(String newEmail) {
+        this.email.set(newEmail);
+    }
+
+    public void setTitle(String newTitle) {
+        this.title.set(newTitle);
+    }
+
+    public void setDescription(String newDescription) {
+        this.description.set(newDescription);
+    }
+
     public void setReply(String newReply) {
         this.reply.set(newReply);
     }
 
-    // Optional: toString() method for debugging or logging
     @Override
     public String toString() {
         return "Post{" +

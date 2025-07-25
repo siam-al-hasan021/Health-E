@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <AnchorPane prefHeight="250.0" prefWidth="350.0"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="healthe_logininterface.DoctorLoginController"
             style="-fx-background-color: #f0f8ff;">
     <children>
         <Label layoutX="100.0" layoutY="20.0" text="Doctor Login" style="-fx-font-size: 20px;" />
-
         <TextField fx:id="emailField" layoutX="80.0" layoutY="70.0" promptText="Doctor Email" />
         <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="110.0" promptText="Password" />
-
         <Button layoutX="130.0" layoutY="160.0" text="Login" onAction="#handleLogin"
                 style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold;" />
     </children>
