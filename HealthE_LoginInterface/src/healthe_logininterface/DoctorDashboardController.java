@@ -19,6 +19,9 @@ public class DoctorDashboardController implements Initializable {
     @FXML
     private Button viewPostsButton;
 
+    @FXML
+    private Button logoutButton;
+
     private String doctorName;
     private String doctorEmail;
 
@@ -33,7 +36,7 @@ public class DoctorDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // You may also test setting the label here (optional)
+        // Optional initialization
     }
 
     @FXML
@@ -43,13 +46,24 @@ public class DoctorDashboardController implements Initializable {
             Parent root = loader.load();
 
             ReplyToPostsController controller = loader.getController();
-            controller.setDoctorEmail(doctorEmail); // Pass email
+            controller.setDoctorEmail(doctorEmail);
 
             Stage stage = (Stage) viewPostsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("⚠️ Failed to load ReplyToPosts.fxml");
+        }
+    }
+
+    @FXML
+    private void logout() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
