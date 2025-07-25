@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="healthe_logininterface.HomeController"
+            prefHeight="300.0" prefWidth="400.0"
+            style="-fx-background-color: #e6f2ff;">
+
+    <children>
+        <Label layoutX="100.0" layoutY="40.0" text="Welcome to Health-E"
+               style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+        <Button layoutX="130.0" layoutY="100.0" prefWidth="140" text="Login as User"
+                onAction="#goToUserLogin"
+                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+        <Button layoutX="130.0" layoutY="160.0" prefWidth="140" text="Login as Doctor"
+                onAction="#goToDoctorLogin"
+                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;" />
+    </children>
+</AnchorPane>
