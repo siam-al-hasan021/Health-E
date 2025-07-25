@@ -3,7 +3,6 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/20.0.1"
@@ -27,11 +26,16 @@
                 onAction="#goToPostProblem"
                 style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold;" />
 
-        <!-- ✅ View Posts button -->
         <Button layoutX="220.0" layoutY="160.0" text="View Posts"
                 fx:id="viewPostsButton"
                 onAction="#goToViewPosts"
                 style="-fx-background-color: #66cc66; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold;" />
+
+        <!-- ✅ Logout Button -->
+        <Button layoutX="500.0" layoutY="20.0" text="Logout"
+                fx:id="logoutButton"
+                onAction="#logout"
+                style="-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-background-radius: 10;" />
 
     </children>
 </AnchorPane>
