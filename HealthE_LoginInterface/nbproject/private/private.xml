@@ -4,13 +4,28 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/FXMLDocumentController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DoctorView.fxml</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/HomeController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/Home.fxml</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/Signup.fxml</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DoctorViewController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/ViewPostsController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DoctorDashboardController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DatabaseConnection.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/Post.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DoctorLogin.fxml</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/ViewPosts.fxml</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DashboardController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/ReplyToPostsController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DoctorLoginController.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/FXMLDocument.fxml</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/SignupController.java</file>
-            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DatabaseConnection.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/DoctorDashboard.fxml</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/ReplyToPosts.fxml</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/PostProblemController.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/HealthE_LoginInterface.java</file>
             <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/Dashboard.fxml</file>
+            <file>file:/C:/Users/user/Documents/GitHub/Health-E/HealthE_LoginInterface/src/healthe_logininterface/PostProblem.fxml</file>
         </group>
     </open-files>
 </project-private>

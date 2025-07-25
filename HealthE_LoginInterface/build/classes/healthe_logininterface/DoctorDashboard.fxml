@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/20.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -11,11 +10,18 @@
             style="-fx-background-color: #f0f8ff;">
 
     <children>
+
         <Label fx:id="doctorLabel" layoutX="50.0" layoutY="30.0" text="Welcome, Doctor!"
                style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 
-        <Button fx:id="viewPostsButton" layoutX="150.0" layoutY="100.0" text="View Posts & Reply"
+        <Button fx:id="viewPostsButton" layoutX="150.0" layoutY="100.0" text="View Posts &amp; Reply"
                 onAction="#goToReplyPage"
                 style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-background-radius: 10;" />
+
+        <!-- ✅ Logout Button -->
+        <Button fx:id="logoutButton" layoutX="400.0" layoutY="20.0" text="Logout"
+                onAction="#logout"
+                style="-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-background-radius: 10;" />
+
     </children>
 </AnchorPane>
