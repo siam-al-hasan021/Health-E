@@ -2,28 +2,16 @@ package healthe_logininterface;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class DashboardController implements Initializable {
 
-    @FXML
-    private Label welcomeLabel;
-
-    @FXML
-    private Button postProblemButton;
-
-    @FXML
-    private Button viewPostsButton;
-
-    @FXML
-    private Button logoutButton;
+    @FXML private Label welcomeLabel;
+    @FXML private Button postProblemButton, viewPostsButton, logoutButton;
 
     private String userName;
     private String userEmail;
@@ -35,9 +23,7 @@ public class DashboardController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // Nothing yet
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
     @FXML
     private void goToPostProblem() {
@@ -61,6 +47,9 @@ public class DashboardController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewPosts.fxml"));
             Parent root = loader.load();
 
+            ViewPostsController controller = loader.getController();
+            controller.setUserEmail(userEmail);
+
             Stage stage = (Stage) viewPostsButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
@@ -71,8 +60,7 @@ public class DashboardController implements Initializable {
     @FXML
     private void logout() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
-            Parent root = loader.load();
+            Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
             Stage stage = (Stage) logoutButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
