@@ -10,26 +10,11 @@ import javafx.scene.control.*;
 
 public class ReplyToPostsController implements Initializable {
 
-    @FXML
-    private TableView<Post> postsTable;
-
-    @FXML
-    private TableColumn<Post, String> emailCol;
-
-    @FXML
-    private TableColumn<Post, String> titleCol;
-
-    @FXML
-    private TableColumn<Post, String> descCol;
-
-    @FXML
-    private TableColumn<Post, String> replyCol;
-
-    @FXML
-    private TextArea replyField;
+    @FXML private TableView<Post> postsTable;
+    @FXML private TableColumn<Post, String> emailCol, titleCol, descCol, replyCol;
+    @FXML private TextArea replyField;
 
     private String doctorEmail;
-
     private ObservableList<Post> postList = FXCollections.observableArrayList();
 
     public void setDoctorEmail(String email) {
@@ -42,28 +27,24 @@ public class ReplyToPostsController implements Initializable {
         titleCol.setCellValueFactory(data -> data.getValue().titleProperty());
         descCol.setCellValueFactory(data -> data.getValue().descriptionProperty());
         replyCol.setCellValueFactory(data -> data.getValue().replyProperty());
-
         loadPostsFromDatabase();
     }
 
     private void loadPostsFromDatabase() {
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
+        postList.clear();
+        try (Connection conn = new DatabaseConnection().getConnection()) {
+            String query = "SELECT id, user_email, title, description, reply FROM posts";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
 
-        String query = "SELECT id, user_email, title, description, reply FROM posts";
-
-        try {
-            Statement statement = connectDB.createStatement();
-            ResultSet result = statement.executeQuery(query);
-
-            while (result.next()) {
-                int id = result.getInt("id");
-                String email = result.getString("user_email");
-                String title = result.getString("title");
-                String description = result.getString("description");
-                String reply = result.getString("reply");
-
-                postList.add(new Post(id, email, title, description, reply != null ? reply : ""));
+            while (rs.next()) {
+                postList.add(new Post(
+                    rs.getInt("id"),
+                    rs.getString("user_email"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("reply") != null ? rs.getString("reply") : ""
+                ));
             }
 
             postsTable.setItems(postList);
@@ -83,44 +64,132 @@ public class ReplyToPostsController implements Initializable {
         }
 
         if (replyText.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Please write a reply before submitting.");
+            showAlert(Alert.AlertType.WARNING, "Reply cannot be empty.");
             return;
         }
 
-        DatabaseConnection connectNow = new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
+        try (Connection conn = new DatabaseConnection().getConnection()) {
+            String insert = "INSERT INTO replies (post_id, doctor_email, reply_text) VALUES (?, ?, ?)";
+            PreparedStatement stmt1 = conn.prepareStatement(insert);
+            stmt1.setInt(1, selectedPost.getId());
+            stmt1.setString(2, doctorEmail);
+            stmt1.setString(3, replyText);
+            stmt1.executeUpdate();
 
-        // Save in `replies` table
-        String insertReply = "INSERT INTO replies (post_id, doctor_email, reply_text) VALUES (?, ?, ?)";
+            String update = "UPDATE posts SET reply = ? WHERE id = ?";
+            PreparedStatement stmt2 = conn.prepareStatement(update);
+            stmt2.setString(1, replyText);
+            stmt2.setInt(2, selectedPost.getId());
+            stmt2.executeUpdate();
 
-        // Also update `posts` table so reply appears in all views
-        String updatePost = "UPDATE posts SET reply = ? WHERE id = ?";
-
-        try {
-            // Insert reply to `replies` table
-            PreparedStatement insertStmt = connectDB.prepareStatement(insertReply);
-            insertStmt.setInt(1, selectedPost.getId());
-            insertStmt.setString(2, doctorEmail);
-            insertStmt.setString(3, replyText);
-            insertStmt.executeUpdate();
-
-            // Update reply in `posts` table
-            PreparedStatement updateStmt = connectDB.prepareStatement(updatePost);
-            updateStmt.setString(1, replyText);
-            updateStmt.setInt(2, selectedPost.getId());
-            updateStmt.executeUpdate();
-
-            // Update UI
             selectedPost.setReply(replyText);
             postsTable.refresh();
             replyField.clear();
 
-            showAlert(Alert.AlertType.INFORMATION, "✅ Reply submitted successfully!");
-
+            showAlert(Alert.AlertType.INFORMATION, "✅ Reply submitted.");
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error submitting reply: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error submitting reply.");
         }
+    }
+
+    @FXML
+    private void editReply() {
+        Post post = postsTable.getSelectionModel().getSelectedItem();
+        if (post == null || post.getReply().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Select a post with a reply.");
+            return;
+        }
+
+        try (Connection conn = new DatabaseConnection().getConnection()) {
+            String check = "SELECT doctor_email FROM replies WHERE post_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(check);
+            stmt.setInt(1, post.getId());
+            ResultSet rs = stmt.executeQuery();
+
+            if (!rs.next() || !rs.getString("doctor_email").equals(doctorEmail)) {
+                showAlert(Alert.AlertType.ERROR, "You can only edit your own reply.");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        TextInputDialog dialog = new TextInputDialog(post.getReply());
+        dialog.setTitle("Edit Reply");
+        dialog.setHeaderText("Editing reply for: " + post.getTitle());
+        dialog.setContentText("New Reply:");
+        dialog.showAndWait().ifPresent(newReply -> {
+            try (Connection conn = new DatabaseConnection().getConnection()) {
+                String updateReply = "UPDATE replies SET reply_text = ? WHERE post_id = ? AND doctor_email = ?";
+                PreparedStatement stmt1 = conn.prepareStatement(updateReply);
+                stmt1.setString(1, newReply);
+                stmt1.setInt(2, post.getId());
+                stmt1.setString(3, doctorEmail);
+                stmt1.executeUpdate();
+
+                String updatePost = "UPDATE posts SET reply = ? WHERE id = ?";
+                PreparedStatement stmt2 = conn.prepareStatement(updatePost);
+                stmt2.setString(1, newReply);
+                stmt2.setInt(2, post.getId());
+                stmt2.executeUpdate();
+
+                post.setReply(newReply);
+                postsTable.refresh();
+                showAlert(Alert.AlertType.INFORMATION, "✅ Reply updated.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @FXML
+    private void deleteReply() {
+        Post post = postsTable.getSelectionModel().getSelectedItem();
+        if (post == null || post.getReply().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Select a post with a reply.");
+            return;
+        }
+
+        try (Connection conn = new DatabaseConnection().getConnection()) {
+            String check = "SELECT doctor_email FROM replies WHERE post_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(check);
+            stmt.setInt(1, post.getId());
+            ResultSet rs = stmt.executeQuery();
+
+            if (!rs.next() || !rs.getString("doctor_email").equals(doctorEmail)) {
+                showAlert(Alert.AlertType.ERROR, "You can only delete your own reply.");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Delete this reply?", ButtonType.YES, ButtonType.NO);
+        confirm.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                try (Connection conn = new DatabaseConnection().getConnection()) {
+                    String delete = "DELETE FROM replies WHERE post_id = ? AND doctor_email = ?";
+                    PreparedStatement stmt1 = conn.prepareStatement(delete);
+                    stmt1.setInt(1, post.getId());
+                    stmt1.setString(2, doctorEmail);
+                    stmt1.executeUpdate();
+
+                    String update = "UPDATE posts SET reply = '' WHERE id = ?";
+                    PreparedStatement stmt2 = conn.prepareStatement(update);
+                    stmt2.setInt(1, post.getId());
+                    stmt2.executeUpdate();
+
+                    post.setReply("");
+                    postsTable.refresh();
+                    showAlert(Alert.AlertType.INFORMATION, "🗑 Reply deleted.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void showAlert(Alert.AlertType type, String msg) {
