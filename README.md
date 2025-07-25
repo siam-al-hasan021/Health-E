@@ -13,3 +13,7 @@ Added user in the database
 problem posting and doctors reply are working fine.
 <img width="1920" height="1080" alt="Screenshot (1349)" src="https://github.com/user-attachments/assets/0c60f0f5-be63-4dd9-9383-3f61bf277abb" />
 database
+<img width="1920" height="1080" alt="Screenshot (1364)" src="https://github.com/user-attachments/assets/2e37ca5b-dfc3-4262-961f-7b5e71823296" />
+<img width="1920" height="1080" alt="Screenshot (1361)" src="https://github.com/user-attachments/assets/8fa1486e-ae2e-4c74-b3af-601264cf6e5e" />
+<img width="1920" height="1080" alt="Screenshot (1362)" src="https://github.com/user-attachments/assets/096cf1a7-1b3c-4888-88ba-574be7dada0f" />
+The users can see the doctors reply.
