@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="400.0" prefWidth="650.0"
+
+<AnchorPane xmlns="http://javafx.com/javafx/20.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/20.0.1"
             fx:controller="healthe_logininterface.ViewPostsController"
-            style="-fx-background-color: #f0f8ff;">
+            prefWidth="1200.0" prefHeight="750.0"
+            style="-fx-background-color: #f5faff;">
     <children>
-        <Label layoutX="20.0" layoutY="20.0" text="All Posts and Replies"
-               style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-        <TableView fx:id="postsTable" layoutX="20.0" layoutY="60.0" prefWidth="610.0" prefHeight="240.0">
+        <Label layoutX="30.0" layoutY="25.0"
+               text="📋 All Posts and Replies"
+               style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="postsTable"
+                   layoutX="30.0" layoutY="70.0"
+                   prefWidth="1140.0" prefHeight="500.0"
+                   style="-fx-font-size: 16px;">
             <columns>
-                <TableColumn fx:id="emailCol" text="User Email" prefWidth="150.0"/>
-                <TableColumn fx:id="titleCol" text="Title" prefWidth="150.0"/>
-                <TableColumn fx:id="descCol" text="Description" prefWidth="160.0"/>
-                <TableColumn fx:id="replyCol" text="Doctor's Reply" prefWidth="150.0"/>
+                <TableColumn fx:id="emailCol" text="User Email" prefWidth="200.0" />
+                <TableColumn fx:id="titleCol" text="Title" prefWidth="200.0" />
+                <TableColumn fx:id="descCol" text="Description" prefWidth="380.0" />
+                <TableColumn fx:id="replyCol" text="Doctor's Reply" prefWidth="360.0" />
             </columns>
         </TableView>
-        <Button layoutX="70.0" layoutY="320.0" text="✏️ Edit Post"
+
+        <Button text="✏️ Edit Post"
                 fx:id="editButton"
+                layoutX="300.0" layoutY="600.0"
                 onAction="#editSelectedPost"
-                style="-fx-background-color: #ffa500; -fx-text-fill: white; -fx-background-radius: 10;" />
-        <Button layoutX="180.0" layoutY="320.0" text="🗑 Delete Post"
+                prefWidth="200.0" prefHeight="40.0"
+                style="-fx-background-color: #ffa500; -fx-font-size: 16px; -fx-text-fill: white; -fx-background-radius: 12;" />
+
+        <Button text="🗑 Delete Post"
                 fx:id="deleteButton"
+                layoutX="530.0" layoutY="600.0"
                 onAction="#deleteSelectedPost"
-                style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-background-radius: 10;" />
-        <Button layoutX="290.0" layoutY="320.0" text="Go Back"
+                prefWidth="200.0" prefHeight="40.0"
+                style="-fx-background-color: #ff4444; -fx-font-size: 16px; -fx-text-fill: white; -fx-background-radius: 12;" />
+
+        <Button text="🔙 Go Back"
+                layoutX="760.0" layoutY="600.0"
                 onAction="#goBack"
-                style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
+                prefWidth="200.0" prefHeight="40.0"
+                style="-fx-background-color: #3399ff; -fx-font-size: 16px; -fx-text-fill: white; -fx-background-radius: 12;" />
     </children>
 </AnchorPane>

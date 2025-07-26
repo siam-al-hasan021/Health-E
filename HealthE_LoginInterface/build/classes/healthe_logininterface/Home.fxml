@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="healthe_logininterface.HomeController"
-            prefHeight="300.0" prefWidth="400.0"
-            style="-fx-background-color: #e6f2ff;">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #e6f2ff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthe_logininterface.HomeController">
 
     <children>
-        <Label layoutX="100.0" layoutY="40.0" text="Welcome to Health-E"
-               style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 
-        <Button layoutX="130.0" layoutY="100.0" prefWidth="140" text="Login as User"
-                onAction="#goToUserLogin"
-                style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;" />
+        <!-- Large Centered Logo -->
+        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="500.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/HEALTHEE.png" />
+            </image>
+        </ImageView>
 
-        <Button layoutX="130.0" layoutY="160.0" prefWidth="140" text="Login as Doctor"
-                onAction="#goToDoctorLogin"
-                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;" />
+        <!-- Centered Heading -->
+        <Label layoutX="420.0" layoutY="282.0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #003366;" text="Welcome to Health-E" />
+
+        <!-- User Login Button -->
+        <Button layoutX="480.0" layoutY="420.0" onAction="#goToUserLogin" prefHeight="60.0" prefWidth="240.0" style="-fx-background-color: #28a745; -fx-font-size: 18px; -fx-text-fill: white; -fx-background-radius: 12;" text="👤 Login as User" />
+
+        <!-- Doctor Login Button -->
+        <Button layoutX="480.0" layoutY="500.0" onAction="#goToDoctorLogin" prefHeight="60.0" prefWidth="240.0" style="-fx-background-color: #007bff; -fx-font-size: 18px; -fx-text-fill: white; -fx-background-radius: 12;" text="🩺 Login as Doctor" />
+
     </children>
 </AnchorPane>
