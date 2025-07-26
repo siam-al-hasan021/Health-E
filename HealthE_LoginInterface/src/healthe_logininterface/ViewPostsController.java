@@ -8,6 +8,7 @@ import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
 import javafx.stage.Stage;
 
 public class ViewPostsController implements Initializable {
@@ -28,7 +29,45 @@ public class ViewPostsController implements Initializable {
         titleCol.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         descCol.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
         replyCol.setCellValueFactory(cellData -> cellData.getValue().replyProperty());
+
+        descCol.setCellFactory(tc -> wrapTextCell());
+        replyCol.setCellFactory(tc -> wrapTextCell());
+
+        postsTable.setFixedCellSize(-1); // enable auto row height
+        postsTable.setRowFactory(tv -> {
+            TableRow<Post> row = new TableRow<>() {
+                @Override
+                protected void updateItem(Post post, boolean empty) {
+                    super.updateItem(post, empty);
+                    if (post != null && !empty) {
+                        setPrefHeight(Control.USE_COMPUTED_SIZE);
+                    }
+                }
+            };
+            return row;
+        });
+
         loadPostsFromDatabase();
+    }
+
+    private TableCell<Post, String> wrapTextCell() {
+        return new TableCell<>() {
+            private final Label label = new Label();
+
+            {
+                label.setWrapText(true);
+                label.setMaxWidth(Double.MAX_VALUE);
+                label.setStyle("-fx-padding: 5px;");
+                setGraphic(label);
+                setPrefHeight(Control.USE_COMPUTED_SIZE);
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                label.setText(empty || item == null ? null : item);
+            }
+        };
     }
 
     private void loadPostsFromDatabase() {
