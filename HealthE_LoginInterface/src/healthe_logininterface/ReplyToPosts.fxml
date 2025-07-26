@@ -1,32 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/20.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="healthe_logininterface.ReplyToPostsController"
-            prefHeight="500.0" prefWidth="700.0"
-            style="-fx-background-color: #f9f9f9;">
+            prefWidth="1200.0" prefHeight="750.0"
+            style="-fx-background-color: #f5faff;">
     <children>
-        <Label layoutX="20.0" layoutY="20.0" text="All Posts"
-               style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-        <TableView fx:id="postsTable" layoutX="20.0" layoutY="60.0" prefWidth="660.0" prefHeight="250.0">
+        <Label layoutX="30.0" layoutY="25.0"
+               text="📋 All Submitted Health Problems"
+               style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="postsTable"
+                   layoutX="30.0" layoutY="70.0"
+                   prefWidth="1140.0" prefHeight="420.0"
+                   style="-fx-font-size: 16px;">
             <columns>
-                <TableColumn fx:id="emailCol" text="User Email" prefWidth="150.0" />
+                <TableColumn fx:id="emailCol" text="User Email" prefWidth="200.0" />
                 <TableColumn fx:id="titleCol" text="Title" prefWidth="200.0" />
-                <TableColumn fx:id="descCol" text="Description" prefWidth="180.0" />
-                <TableColumn fx:id="replyCol" text="Reply" prefWidth="130.0" />
+                <TableColumn fx:id="descCol" text="Description" prefWidth="380.0" />
+                <TableColumn fx:id="replyCol" text="Doctor's Reply" prefWidth="360.0" />
             </columns>
         </TableView>
-        <Label layoutX="20.0" layoutY="330.0" text="Your Reply:" style="-fx-font-size: 16px;" />
-        <TextArea fx:id="replyField" layoutX="20.0" layoutY="360.0" prefWidth="660.0" prefHeight="60.0" />
-        <Button text="Submit Reply" layoutX="160.0" layoutY="440.0"
+
+        <Label layoutX="30.0" layoutY="510.0"
+               text="✍️ Your Reply:"
+               style="-fx-font-size: 22px;" />
+
+        <TextArea fx:id="replyField"
+                  layoutX="30.0" layoutY="545.0"
+                  prefWidth="1140.0" prefHeight="100.0"
+                  wrapText="true"
+                  style="-fx-font-size: 16px;" />
+
+        <Button text="✅ Submit Reply"
+                layoutX="240.0" layoutY="665.0"
                 onAction="#submitReply"
-                style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-background-radius: 10;" />
-        <Button text="✏️ Edit Reply" layoutX="300.0" layoutY="440.0"
+                prefWidth="200.0" prefHeight="40.0"
+                style="-fx-background-color: #3399ff; -fx-font-size: 16px; -fx-text-fill: white; -fx-background-radius: 12;" />
+
+        <Button text="✏️ Edit Reply"
+                layoutX="480.0" layoutY="665.0"
                 onAction="#editReply"
-                style="-fx-background-color: #ffa500; -fx-text-fill: white; -fx-background-radius: 10;" />
-        <Button text="🗑 Delete Reply" layoutX="430.0" layoutY="440.0"
+                prefWidth="200.0" prefHeight="40.0"
+                style="-fx-background-color: #ffa500; -fx-font-size: 16px; -fx-text-fill: white; -fx-background-radius: 12;" />
+
+        <Button text="🗑 Delete Reply"
+                layoutX="720.0" layoutY="665.0"
                 onAction="#deleteReply"
-                style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-background-radius: 10;" />
+                prefWidth="200.0" prefHeight="40.0"
+                style="-fx-background-color: #ff4444; -fx-font-size: 16px; -fx-text-fill: white; -fx-background-radius: 12;" />
     </children>
 </AnchorPane>
