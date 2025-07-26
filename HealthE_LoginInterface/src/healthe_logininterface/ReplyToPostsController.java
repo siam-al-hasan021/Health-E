@@ -4,9 +4,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 import javafx.collections.*;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ReplyToPostsController implements Initializable {
 
@@ -23,27 +23,54 @@ public class ReplyToPostsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        postsTable.setFixedCellSize(-1); // allow dynamic row height
+
         emailCol.setCellValueFactory(data -> data.getValue().emailProperty());
         titleCol.setCellValueFactory(data -> data.getValue().titleProperty());
         descCol.setCellValueFactory(data -> data.getValue().descriptionProperty());
         replyCol.setCellValueFactory(data -> data.getValue().replyProperty());
+
+        descCol.setCellFactory(column -> createWrappedCell(380));
+        replyCol.setCellFactory(column -> createWrappedCell(360));
+
         loadPostsFromDatabase();
+    }
+
+    private TableCell<Post, String> createWrappedCell(double maxWidth) {
+        return new TableCell<>() {
+            private final Label label = new Label();
+
+            {
+                label.setWrapText(true);
+                label.setMaxWidth(maxWidth);
+                label.setStyle("-fx-padding: 5px;");
+                setGraphic(label);
+                setPrefHeight(Control.USE_COMPUTED_SIZE);
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                label.setText(empty || item == null ? null : item);
+                this.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            }
+        };
     }
 
     private void loadPostsFromDatabase() {
         postList.clear();
         try (Connection conn = new DatabaseConnection().getConnection()) {
-            String query = "SELECT id, user_email, title, description, reply FROM posts";
+            String query = "SELECT id, user_email, title, description, reply FROM posts ORDER BY id DESC";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
                 postList.add(new Post(
-                    rs.getInt("id"),
-                    rs.getString("user_email"),
-                    rs.getString("title"),
-                    rs.getString("description"),
-                    rs.getString("reply") != null ? rs.getString("reply") : ""
+                        rs.getInt("id"),
+                        rs.getString("user_email"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("reply") != null ? rs.getString("reply") : ""
                 ));
             }
 
