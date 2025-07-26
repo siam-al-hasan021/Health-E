@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="250" prefWidth="350"
-            style="-fx-background-color: #cce6ff;"
-            xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/20.0.1"
-            fx:controller="healthe_logininterface.FXMLDocumentController">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #cce6ff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthe_logininterface.FXMLDocumentController">
 
-   <children>
-      <Label layoutX="40.0" layoutY="20.0" text="Login to Health-E" textFill="#003366">
-         <font>
-            <Font name="Lucida Fax Demibold" size="22.0" />
-         </font>
-      </Label>
+    <children>
 
-      <TextField fx:id="usernameField" layoutX="80.0" layoutY="70.0" promptText="Email"
-                 style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14;" />
+        <!-- App Logo -->
+        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="500.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/HEALTHEE.png" />
+            </image>
+        </ImageView>
 
-      <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="115.0" promptText="Password"
-                     style="-fx-background-radius: 10; -fx-padding: 8; -fx-font-size: 14;" />
+        <!-- Heading -->
+        <Label layoutX="430.0" layoutY="300.0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #003366;" text="👤 Login to Health-E" />
 
-      <Button fx:id="loginButton" layoutX="120.0" layoutY="160.0" text="Login"
-              onAction="#handleLogin"
-              style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
+        <!-- Email Field -->
+        <TextField fx:id="usernameField" layoutX="450.0" layoutY="370.0" prefHeight="40.0" prefWidth="300.0" promptText="Email" style="-fx-background-radius: 10; -fx-font-size: 16px;" />
 
-      <Hyperlink fx:id="signupLink" layoutX="90.0" layoutY="200.0"
-                 text="Don’t have an account? Sign up"
-                 onAction="#goToSignup" />
-   </children>
+        <!-- Password Field -->
+        <PasswordField fx:id="passwordField" layoutX="450.0" layoutY="430.0" prefHeight="40.0" prefWidth="300.0" promptText="Password" style="-fx-background-radius: 10; -fx-font-size: 16px;" />
+
+        <!-- Login Button -->
+        <Button fx:id="loginButton" layoutX="510.0" layoutY="490.0" onAction="#handleLogin" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #3399ff; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" text="🔐 Login" />
+
+        <!-- Sign-up Hyperlink -->
+        <Hyperlink fx:id="signupLink" layoutX="480.0" layoutY="550.0" onAction="#goToSignup" style="-fx-font-size: 14px; -fx-text-fill: #003366;" text="Don’t have an account? Sign up" />
+    </children>
 </AnchorPane>
